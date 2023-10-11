@@ -1,0 +1,18 @@
+// add your global imports and css rules here
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
