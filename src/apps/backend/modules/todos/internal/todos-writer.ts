@@ -14,26 +14,49 @@ export default class TodosWriter {
         const createdTodo = await TodosRepository.todosDB.create({
             account: params.accountId,
             description: params.description,
+            isComplete: params.isComplete,
         });
 
         return TodosUtil.convertTodosDBtoTodos(createdTodo);
     }
 
     public static async updateTodo(params: UpdateTodosParams): Promise<Todos> {
-        const todo = await TodosRepository.todosDB.findOne({
-            _id: params.todosId,
-        });
+        console.log(params.description);
+        console.log(params.isComplete);
+        const updatedTodo = await TodosRepository.todosDB.findOneAndUpdate(
+            {
+                _id: params.todosId,
+            },
+            {
+                $set: {
+                    description: params.description,
+                    isComplete: params.isComplete,
+                }
+            },
+            {
+                new: true,
+            }
+        );
 
-        if(!todo) {
+        if(!updatedTodo) {
             throw new TodoNotFoundError(params.todosId);
         }
 
-        todo.description = params.description;
-        todo.isComplete = params.isComplete;
-
-        const updatedTodo = await todo.save();
-
         return TodosUtil.convertTodosDBtoTodos(updatedTodo);
+        // const todo = await TodosRepository.todosDB.findOne({
+        //     _id: params.todosId,
+        // });
+
+        // if(!todo) {
+        //     throw new TodoNotFoundError(params.todosId);
+        // }
+
+        // todo.description = params.description === undefined ? todo.description : params.description;
+        // todo.isComplete = params.isComplete === undefined ? todo.isComplete : params.isComplete;
+
+        // const updatedTodo = await todo.save();
+
+        // return TodosUtil.convertTodosDBtoTodos(updatedTodo);
     }
 
     public static async deleteTodo(params: DeleteTodosParams): Promise<void> {

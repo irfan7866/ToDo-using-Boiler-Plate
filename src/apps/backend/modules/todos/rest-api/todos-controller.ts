@@ -42,11 +42,11 @@ export default class TodosController {
         try {
             const params: UpdateTodosParams = {
                 accountId: req.params.accountId,
-                todosId: req.params.todosId,
-                description: req.params.description,
+                todosId: req.params.id,
+                description: req.body.description,
                 isComplete: req.body.isComplete as boolean,
             };
-            const todo = await TodosService.updateTodo(params);
+            const todo: Todos = await TodosService.updateTodo(params);
             res.status(200).send(TodosController.serializeTodoAsJSON(todo));
         } catch(e) {
             next(e);
@@ -66,7 +66,7 @@ export default class TodosController {
 
             await TodosService.deleteTodo(params);
 
-            res.status(204).send();
+            res.status(204).send(`Item Deleted Successfully: ${params}`);
         } catch(e) {
             next(e);
         }
@@ -96,7 +96,7 @@ export default class TodosController {
         try {
             const params: GetTodoParams = {
                 accountId: req.params.accountId,
-                todosId: req.params.todosId,
+                todosId: req.params.id,
             };
 
             const todo = await TodosService.getTodoForAccount(params);
@@ -112,6 +112,7 @@ export default class TodosController {
             id: todo.id,
             account: todo.account,
             description: todo.description,
+            isComplete: todo.isComplete,
         };
     }
 }

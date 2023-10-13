@@ -11,7 +11,7 @@ export default class TodosRouter {
         router.post('/add', AccountAuthMiddleware.ensureAccess, TodosController.createTodos);
         router.get('/getall', AccountAuthMiddleware.ensureAccess, TodosController.getAllTodos);
         router.get('/get/:id', AccountAuthMiddleware.ensureAccess, TodosController.getTodo);
-        router.put('/update', AccountAuthMiddleware.ensureAccess, TodosController.updateTodo);
+        router.put('/update/:id', AccountAuthMiddleware.ensureAccess, TodosController.updateTodo);
         router.delete('/:id', AccountAuthMiddleware.ensureAccess, TodosController.deleteTodos);
 
         return router;

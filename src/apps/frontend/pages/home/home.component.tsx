@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ChildComponentProps {
     user: {
@@ -10,6 +11,17 @@ interface ChildComponentProps {
 
 export default function ChildComponentUser(props: ChildComponentProps) {
     const {name, age, sex} = props.user;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const userId = localStorage.getItem('accountId');
+        if(!userId) {
+            navigate('/login');
+        }
+        // if localStorage not exists
+        // navigate to login
+    }, []);
+
     return (
         <div>
             <h1>Hello</h1>

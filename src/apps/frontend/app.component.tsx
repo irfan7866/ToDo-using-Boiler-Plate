@@ -29,6 +29,7 @@ export default function App(): React.ReactElement {
           <Routes>
             <Route path='/about' element={<About />} />
             <Route path='/' element={<Login />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='*' element={<NotFound />} />
             <Route path='/home' element={<Home />} />
