@@ -1,16 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useDeps } from '../../contexts';
 import { useNavigate } from 'react-router-dom';
 import './login.page.scss';
+import { AccessService } from '../../services';
 
 export default function Login(): React.ReactElement {
 
   const navigate = useNavigate();
-  const { accessService } = useDeps();
+  const accessService = new AccessService();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     const userId = localStorage.getItem('accountId');
@@ -20,18 +18,23 @@ export default function Login(): React.ReactElement {
   }, []);
 
   const login = useCallback(async () => {
-    setSuccess(false);
-    setError(false);
 
     try {
       const object = await accessService.login(username, password);
-      // setUserId(object.data.accountId);
       localStorage.setItem('token', object.data.token);
       localStorage.setItem('accountId', object.data.accountId);
       navigate(`/home`);
-      setSuccess(true);
-    } catch (err) {
-      setError(true);
+    } catch (e) {
+      if(!username || !password) {
+        alert(`Please enter username and password.`)
+      }
+      else if(e.response.status == 404) {
+        alert(`User Not Found`);
+      }
+      else if(e.response.status === 401) {
+        alert(`Invalid Credentials. Please try again.`);
+      }
+      console.log(e);
     }
   }, [
     accessService,
@@ -41,8 +44,6 @@ export default function Login(): React.ReactElement {
 
   return (
     <form>
-      {success ? <h2 id='success'>SUCCESS!</h2> : null}
-      {error ? <h2 id='error'>ERROR!</h2> : null}
       <input
         onChange={(e) => setUsername(e.target.value)}
         id='username'

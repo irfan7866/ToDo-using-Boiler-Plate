@@ -43,20 +43,6 @@ export default class TodosWriter {
         }
 
         return TodosUtil.convertTodosDBtoTodos(updatedTodo);
-        // const todo = await TodosRepository.todosDB.findOne({
-        //     _id: params.todosId,
-        // });
-
-        // if(!todo) {
-        //     throw new TodoNotFoundError(params.todosId);
-        // }
-
-        // todo.description = params.description === undefined ? todo.description : params.description;
-        // todo.isComplete = params.isComplete === undefined ? todo.isComplete : params.isComplete;
-
-        // const updatedTodo = await todo.save();
-
-        // return TodosUtil.convertTodosDBtoTodos(updatedTodo);
     }
 
     public static async deleteTodo(params: DeleteTodosParams): Promise<void> {

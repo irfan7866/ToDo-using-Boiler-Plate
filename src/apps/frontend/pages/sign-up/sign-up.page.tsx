@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDeps } from '../../contexts';
 import './sign-up.page.scss';
+import { AccessService } from '../../services';
 
 
 export default function SignUp(): React.ReactElement {
 
     const navigate = useNavigate();
-    const { accessService } = useDeps();
+    const accessService = new AccessService();
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
 
     useEffect(() => {
         const userId = localStorage.getItem('accountId');
@@ -22,28 +19,28 @@ export default function SignUp(): React.ReactElement {
         }
     }, []);
 
-    const signup = useCallback(async () => {
-        setSuccess(false);
-        setError(false);
-
-        console.log(password);
-        console.log(confirmPassword);
-
-        if(password !== confirmPassword) {
-            console.log(`Your passwords are change. Please enter same password in both the fields`);
-        }
-
-        console.log(success);
-        console.log(error);
+    const signup = useCallback(async (e) => {
+        e.preventDefault();
 
         try {
-            const Object = await accessService.login(username, password);
-            localStorage.setItem('token', Object.data.token);
-            localStorage.setItem('accountId', Object.data.accountId);
+            await accessService.register(name, username, password);
+
+            const object = await accessService.login(username, password);
+
+            localStorage.setItem('token', object.data.token);
+            localStorage.setItem('accountId', object.data.accountId);
+
             navigate(`/home`);
-            setSuccess(true);
         } catch(e) {
-            setError(true);
+            if(!name || !username || !password) {
+                alert(`Please enter all the fields`);
+            }
+            else if(e.response.status === 409) {
+                alert(`This username is already registered. Please with different username.`)
+            }
+            else {
+                console.log(`An error occurred. Please try again.`);
+            }
         }
     }, [accessService, name, username, password])
 
@@ -80,16 +77,6 @@ export default function SignUp(): React.ReactElement {
                         type='password' 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder='Eg: xyz123' 
-                    />
-                </div>
-
-                <div className='sign-up-block'>
-                    <label>Confirm password:</label>
-                    <input 
-                        type='password' 
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder='Eg: xyz123' 
                     />
                 </div>
