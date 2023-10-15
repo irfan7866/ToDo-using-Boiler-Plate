@@ -42,7 +42,12 @@ export default function SignUp(): React.ReactElement {
                 console.log(`An error occurred. Please try again.`);
             }
         }
-    }, [accessService, name, username, password])
+    }, [
+        accessService, 
+        name, 
+        username, 
+        password
+    ])
 
     return (
         <div className='sign-up-page'>
@@ -62,7 +67,7 @@ export default function SignUp(): React.ReactElement {
                 </div>
 
                 <div className='sign-up-block'>
-                    <label>Enter your email:</label>
+                    <label>Enter your username:</label>
                     <input 
                         type='text' 
                         value={username}

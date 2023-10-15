@@ -1,6 +1,7 @@
 import APIService from './api.service';
 
 export default class AccessService extends APIService {
+  //user login and registeration
   login(username: string, password: string): Promise<any> {
     return this.apiClient.post('/access-tokens', {
       username,
@@ -16,6 +17,7 @@ export default class AccessService extends APIService {
     });
   }
 
+  //task CRUD operation
   add(userId, token, description): Promise<any> {
     const config = {
       headers: {
@@ -36,19 +38,24 @@ export default class AccessService extends APIService {
     return this.apiClient.get(`/${userId}/todos/getAll`, config);
   }
 
-  delete(userId, token, itemId): Promise<any> {
+  delete(userId, token, taskId): Promise<any> {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`
       }
     }
-    return this.apiClient.delete(`/${userId}/todos/${itemId}`, config);
+    return this.apiClient.delete(`/${userId}/todos/${taskId}`, config);
   }
 
-  update(description, isComplete): Promise<any> {
-    return this.apiClient.put('/:id/todos/update/:id', {
+  update(userId, token, taskId, description, isComplete): Promise<any> {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    return this.apiClient.put(`/${userId}/todos/update/${taskId}`, {
       description,
       isComplete,
-    });
+    }, config);
   }
 }

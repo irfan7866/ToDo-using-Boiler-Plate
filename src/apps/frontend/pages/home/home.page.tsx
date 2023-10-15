@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './home.page.scss'
-import Input from '../../components/input/input.component';
-import Todos from '../../components/todos/todos.component';
+import Tasks from '../../components/tasks/tasks.component';
 
 export default function Home() {
 
@@ -29,9 +28,7 @@ export default function Home() {
                 <button onClick={handleLogout} className='navbar-button'>Logout</button>
             </div>
 
-            <Input />
-
-            <Todos />
+            <Tasks />
 
         </div>
     )
