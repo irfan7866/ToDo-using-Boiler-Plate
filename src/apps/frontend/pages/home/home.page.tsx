@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './home.page.scss'
-import Tasks from '../../components/tasks/tasks.component';
+import Tasks from '../../components/input/tasks.component';
 
 export default function Home() {
 

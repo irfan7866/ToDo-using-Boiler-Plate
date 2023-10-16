@@ -23,7 +23,8 @@ export default function SignUp(): React.ReactElement {
         e.preventDefault();
 
         try {
-            await accessService.register(name, username, password);
+            const user = await accessService.register(name, username, password);
+            console.log(user);
 
             const object = await accessService.login(username, password);
 

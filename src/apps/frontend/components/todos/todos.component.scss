@@ -1,0 +1,33 @@
+.task {
+    position: fixed;
+    top: 28vh;
+    left: 0;
+    right: 0;
+    overflow:visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-box {
+    width: 60vh;
+    display: flex;
+    flex: row;
+    margin: 5px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.task-content {
+    margin-top: 5px;
+    width: 30vh;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.task-complete-button, .task-update-button, .task-delete-button {
+    height: 30px;
+    margin: 5px 5px 0 5px;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 5px;
+}

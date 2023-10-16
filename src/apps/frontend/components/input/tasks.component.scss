@@ -54,11 +54,14 @@
     margin-bottom: 10px;
 }
 
-.task-complete-button,
-.task-update-button,
-.task-delete-button {
+.task-button {
     height: 30px;
     margin: 5px 5px 0 5px;
     border: 1px solid rgb(118, 118, 118);
     border-radius: 5px;
+}
+
+.updated-input {
+    margin: 5px;
+    width: 320px;
 }

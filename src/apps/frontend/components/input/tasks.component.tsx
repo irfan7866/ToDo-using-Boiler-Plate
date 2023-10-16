@@ -114,36 +114,36 @@ export default function Tasks(): React.ReactElement {
             <div className='task'>
                 <h1>Incomplete Tasks</h1>
                 {todos.filter((todo) => !todo.isComplete).map((todo) => (
-                    <div className='task-box'>
+                    <div>
                         {updateTaskId === todo.id ? (
-                            <div>
+                            <div  className='task-box'>
                                 <input 
                                     value={updatedDesc}
                                     onChange={(e) => setUpdatedDesc(e.target.value)}
                                     className='updated-input'
                                 />
                                 <button
-                                    className='updated-save-button'
+                                    className='task-button'
                                     onClick={() => save(todo.id, todo.isComplete)}
                                 >Save</button>
                                 <button
-                                    className='updated-cancel-button'
+                                    className='task-button'
                                     onClick={() => cancel()}
                                 >Cancel</button>
                             </div>                            
                         ) : (
-                            <div>
+                            <div  className='task-box'>
                                 <p className='task-content'>{todo.description}</p>
                                 <button 
-                                    className='task-complete-button' 
+                                    className='task-button' 
                                     onClick={() => complete(todo.id, todo.description, !todo.isComplete)}
                                 >Complete</button>
                                 <button 
-                                    className='task-update-button'
+                                    className='task-button'
                                     onClick={() => update(todo.id, todo.description)}
                                 >Update</button>
                                 <button 
-                                    className='task-delete-button' 
+                                    className='task-button' 
                                     onClick={() => deleteTodo(todo.id)}
                                 >Delete</button>
                             </div>
@@ -157,11 +157,11 @@ export default function Tasks(): React.ReactElement {
                     <div className='task-box'>
                         <p className='task-content'>{todo.description}</p>
                         <button 
-                            className='task-complete-button' 
+                            className='task-button' 
                             onClick={() => complete(todo.id, todo.decription, !todo.isComplete)}
                         >Incomplete</button>
                         <button 
-                            className='task-delete-button' 
+                            className='task-button' 
                             onClick={() => deleteTodo(todo.id)}
                         >Delete</button>
                     </div>

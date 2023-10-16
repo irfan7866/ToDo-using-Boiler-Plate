@@ -12,8 +12,6 @@ import ConfigManager from './modules/config/config-manager';
 import ConfigService from './modules/config/config-service';
 import Logger from './modules/logger/logger';
 import LoggerManager from './modules/logger/logger-manager';
-import TaskServiceManager from './modules/task/task-service-manager';
-import UserServiceManager from './modules/user/user-service-manager';
 import TodoServiceManager from './modules/todos/todos-service-manager';
 
 const isDevEnv = process.env.NODE_ENV === 'development';
@@ -60,14 +58,8 @@ export default class App {
     const accountServiceRESTApi = await AccountServiceManager.createRestAPIServer();
     app.use('/', accountServiceRESTApi);
 
-    const userServiceRESTApi = await UserServiceManager.createRestAPIServer();
-    app.use('/', userServiceRESTApi);
-
     const accessTokenServiceRESTApi = await AccessTokenServiceManager.createRestAPIServer();
     app.use('/', accessTokenServiceRESTApi);
-
-    const taskServiceRESTApi = await TaskServiceManager.createRestAPIServer();
-    app.use('/', taskServiceRESTApi);
 
     const todoServiceRESTApi = await TodoServiceManager.createRestAPIServer();
     app.use('/', todoServiceRESTApi);
